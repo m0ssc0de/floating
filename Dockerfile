@@ -23,6 +23,8 @@ RUN apk add --update libc6-compat
 COPY --from=builder /go/src/github.com/slackhq/nebula/nebula /nebula
 COPY --from=builder2 /src/target/x86_64-alpine-linux-musl/release/tunnels /tunnels
 
+ENV PORT 6443
+
 COPY ./run.sh /run.sh
 
 CMD sh /run.sh
