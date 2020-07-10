@@ -8,15 +8,11 @@ use std::thread;
 mod macros;
 
 fn main() {
-    let mut child = Command::new("nebula")
+    let mut child = Command::new("/nebula")
         .arg("-config")
         .arg("/etc/nebula/config.yml")
         .spawn()
         .expect("failed to execute child");
-
-    let ecode = child.wait().expect("failed to wait on child");
-
-    assert!(ecode.success());
 
     let args: Vec<String> = env::args().collect();
 
@@ -43,6 +39,10 @@ fn main() {
             }
         }
     }
+
+    let ecode = child.wait().expect("failed to wait on child");
+
+    assert!(ecode.success());
 }
 
 fn handle_conn(lhs_stream: TcpStream, rhs_stream: TcpStream) {
